@@ -1,0 +1,15 @@
+services:
+  whisper-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      WHISPER_MODEL: "medium"
+      DEVICE: "cuda"
+      COMPUTE_TYPE: "float16"     # try "int8_float16" if VRAM is tight
+      BEAM_SIZE: "5"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
